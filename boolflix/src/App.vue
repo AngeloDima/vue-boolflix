@@ -6,6 +6,9 @@
 
     <div class="card" v-for="movie in Film" :key="movie.id">
       <p>Titolo: {{movie.title}}</p> 
+      <p>Original: {{movie.original_title}}</p> 
+      <p>lingua: {{movie.original_language}}</p> 
+      <p>Voto: {{movie.vote_average}}</p> 
     </div>
 
   </div>
