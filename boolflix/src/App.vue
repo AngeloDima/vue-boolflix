@@ -3,6 +3,11 @@
     <div>
       <input type="text" v-model="query"/> <button @click="search">Cerca</button>
     </div>
+
+    <div class="card" v-for="movie in Film" :key="movie.id">
+      <p>Titolo: {{movie.title}}</p> 
+    </div>
+
   </div>
 </template>
 
@@ -14,7 +19,7 @@ export default {
   data(){
     return {
       query: ``,
-      movies: []
+      Film: []
     }
   },
   methods:{
@@ -26,7 +31,7 @@ export default {
         .then((response)=>{
           console.log(response);
           if (response.status === 200){
-            this.movies = response.data.results;
+            this.Film = response.data.results;
         }
       })
       .catch(error => {
