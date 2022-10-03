@@ -6,9 +6,13 @@
 
     <div class="card" v-for="movie in Film" :key="movie.id">
       <p>Titolo: {{movie.title}}</p> 
-      <p>Original: {{movie.original_title}}</p> 
-      <p>lingua: {{movie.original_language}}</p> 
+      <p>Original: {{movie.original_title}}</p>  
       <p>Voto: {{movie.vote_average}}</p> 
+      <p>lingua: 
+        <img class="bandiera" :src="getFlag(movie.original_language)"
+                              :alt="movie.original_language"
+                              >
+      </p> 
     </div>
 
   </div>
@@ -40,7 +44,22 @@ export default {
       .catch(error => {
         console.log(error.message)
       })
-    }
+    },
+    getFlag(country){
+      switch(country){
+        case 'en':{
+          country = 'gb';
+          break;
+        }
+        case 'ja':{
+          country = 'jp'
+          break;
+        }
+      }
+
+      return `https://flagicons.lipis.dev/flags/1x1/${country}.svg`
+    },
+    
   },
 }
 </script>
