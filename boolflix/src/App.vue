@@ -4,17 +4,27 @@
       <input type="text" v-model="query"/> <button @click="search">Cerca</button>
     </div>
 
-    <div class="card" v-for="movie in Film" :key="movie.id">
+
+
+         <!-- -------------FILM--------------- -->
+     <div class="card" v-for="movie in Film" :key="movie.id">
       <p>Titolo: {{movie.title}}</p> 
-      <p>Original: {{movie.original_title}}</p>  
+      <!-- <p>Original: {{movie.original_title}}</p>  
       <p>Voto: {{movie.vote_average}}</p> 
       <p>lingua: 
         <img class="bandiera" :src="getFlag(movie.original_language)"
                               :alt="movie.original_language"
                               >
-      </p> 
-    </div>
+      </p>  -->
+    </div> 
 
+    <!-- ---------Serie Tv-------------- -->
+
+    <div class="card" v-for="tvSerie in tvSeries" :key="tvSerie.id">
+      <p>Name: {{tvSerie.name}}</p> 
+    </div> 
+
+    
   </div>
 </template>
 
@@ -26,39 +36,60 @@ export default {
   data(){
     return {
       query: ``,
-      Film: []
+      Film: [],
+      tvSeries: []
     }
   },
   methods:{
     search(){
       this.queryApi(this.query);
+      this.queryApi2(this.query)
     },
-    queryApi(textToSearch){
-      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c4843b621764220065cb747f4ce24763&query=${textToSearch}&language=it-IT`)
+
+    //  -----------FILM-----------
+     queryApi(textToSearch){
+       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c4843b621764220065cb747f4ce24763&query=${textToSearch}&language=it-IT`)
+         .then((response)=>{
+           console.log(response);
+           if (response.status === 200){
+             this.Film = response.data.results;
+         }
+       })
+       .catch(error => {
+         console.log(error.message)
+       })
+     },
+
+    // -------------
+        // Serie TV
+    queryApi2(textToSearch){
+      axios.get(`https://api.themoviedb.org/3/search/tv?api_key=c4843b621764220065cb747f4ce24763&language=en-US&page=1&query=${textToSearch}&include_adult=false`)
         .then((response)=>{
           console.log(response);
           if (response.status === 200){
-            this.Film = response.data.results;
+            this.tvSeries = response.data.results;
         }
       })
       .catch(error => {
         console.log(error.message)
       })
     },
-    getFlag(country){
-      switch(country){
-        case 'en':{
-          country = 'gb';
-          break;
-        }
-        case 'ja':{
-          country = 'jp'
-          break;
-        }
-      }
 
-      return `https://flagicons.lipis.dev/flags/1x1/${country}.svg`
-    },
+    // ---------------
+    // getFlag(country){
+    //   switch(country){
+    //     case 'en':{
+    //       country = 'gb';
+    //       break;
+    //     }
+    //     case 'ja':{
+    //       country = 'jp'
+    //       break;
+    //     }
+    //   }
+
+    //   return `https://flagicons.lipis.dev/flags/1x1/${country}.svg`
+    // },
     
   },
 }
