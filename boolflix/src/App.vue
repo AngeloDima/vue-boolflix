@@ -73,5 +73,8 @@ export default {
   .card{
     border: 1px solid black;
     margin: 10px 0;
+    .bandiera{
+      width: 25px;
+    }
   }
 </style> 
