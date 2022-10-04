@@ -7,7 +7,10 @@
 
 
          <!-- -------------FILM--------------- -->
-     <div class="card" v-for="movie in Film" :key="movie.id">
+      <div class="card" v-for="movie in Film" :key="movie.id">
+
+        <img :src="movie.poster_path" :alt="movie.title">
+
       <p>Titolo: {{movie.title}}</p> 
       <p>Original: {{movie.original_title}}</p>  
       <p>Voto: {{movie.vote_average}}</p> 
@@ -16,11 +19,11 @@
                               :alt="movie.original_language"
                               >
       </p> 
-    </div> 
+    </div>
 
     <!-- ---------Serie Tv-------------- -->
 
-    <div class="card" v-for="tvSerie in tvSeries" :key="tvSerie.id">
+    <!-- <div class="card" v-for="tvSerie in tvSeries" :key="tvSerie.id">
       <p>Name: {{tvSerie.name}}</p> 
       <p>Orginal-name: {{tvSerie.original_name}}</p>  
       <p>Voto: {{tvSerie.vote_average}}</p> 
@@ -29,7 +32,7 @@
                               :alt="tvSerie.original_language"
                               >
       </p> 
-    </div> 
+    </div>  -->
 
     
   </div>
@@ -114,5 +117,9 @@ export default {
     .bandiera{
       width: 25px;
     }
+  }
+  #asd{
+    width: 50px;
+    height: 50px;
   }
 </style> 
